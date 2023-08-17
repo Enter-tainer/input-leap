@@ -212,9 +212,9 @@ jobs:
           name: Windows-2022-${{ env.CI_ENV_BUILD_TYPE }}
           path: ${{ env.CI_ENV_BUILD_TYPE }}.zip
       - name: Build the Installer
-        run: .\build_installer.bat
-        if: ${{ env.CI_ENV_BUILD_TYPE == 'Release' }}
-        shell: cmd
+        if: env.B_BUILD_TYPE == 'Release'
+        run: |
+          & "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe" /Qp .\build\installer-inno\input-leap.iss
       - uses: actions/upload-artifact@v3
         if: ${{ env.CI_ENV_BUILD_TYPE == 'Release' }}
         with:
